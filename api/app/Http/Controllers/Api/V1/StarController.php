@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreStarRequest;
-use App\Http\Requests\UpdateStarRequest;
-use App\Http\Resources\StarResource;
+use App\Http\Requests\V1\StoreStarRequest;
+use App\Http\Requests\V1\UpdateStarRequest;
 use App\Http\Resources\V1\StarCollection;
+use App\Http\Resources\V1\StarResource;
 use App\Models\Star;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StarController extends Controller
