@@ -8,16 +8,31 @@ use App\Http\Requests\V1\UpdateStarRequest;
 use App\Http\Resources\V1\StarCollection;
 use App\Http\Resources\V1\StarResource;
 use App\Models\Star;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class StarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): ResourceCollection
     {
-        return new StarCollection(Star::all());
+        $query = Star::query();
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('first_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('last_name', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        $stars = $query->orderBy('first_name')->orderBy('last_name')->get();
+
+        return new StarCollection($stars);
     }
 
     /**
