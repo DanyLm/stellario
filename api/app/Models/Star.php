@@ -18,5 +18,7 @@ class Star extends Model
         'first_name',
         'last_name',
         'description',
+        'face',
+        'popularity'
     ];
 }

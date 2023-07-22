@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('face');
             $table->text('description');
+            $table->integer('popularity');
             $table->timestamps();
         });
     }
