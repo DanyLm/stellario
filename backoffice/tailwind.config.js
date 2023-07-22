@@ -17,6 +17,9 @@ module.exports = {
       padding: '2rem',
       center: true
     },
+    letterSpacing: {
+      widest: '0.3em'
+    },
     screens: {
       sm: '640px',
       md: '768px'
