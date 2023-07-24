@@ -3,5 +3,6 @@ export interface StarInterface {
   first_name: string
   last_name: string
   popularity: number
-  face: string
+  description: string
+  face: any
 }
