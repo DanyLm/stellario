@@ -30,6 +30,7 @@
 import type { PropType } from 'vue'
 import { editFace } from '@/services/starApi'
 import { StarInterface } from '@/models'
+import { toast } from '@/services/toast'
 
 export default {
   props: {
@@ -60,14 +61,13 @@ export default {
       this.face = URL.createObjectURL(file)
 
       try {
-        await editFace(this.star, file)
+        const res: any = await editFace(this.star, file)
+        toast(res.toast.message, res.toast.type)
       } catch (err: any) {
         this.face = this.star.face.path
+        toast(err.response.data.message, err.response.data.errors ? 'error' : 'warning')
       }
     }
-    // async upload(file: any) {
-
-    // }
   }
 }
 </script>

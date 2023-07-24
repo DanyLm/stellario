@@ -36,6 +36,7 @@ import { BaseModal, Button } from '@/components'
 import type { StarInterface } from '@/models'
 import { StarForm } from '.'
 import { editStar, deleteStar, createStar } from '@/services/starApi'
+import { toast } from '@/services/toast'
 
 const appState: Ref<string> = ref('idle')
 const error: Ref<any> = ref({})
@@ -67,9 +68,10 @@ const handle = (key: string, value: any) => {
 const _delete = async () => {
   appState.value = 'loading'
   try {
-    await deleteStar(data.value)
+    const res: any = await deleteStar(data.value)
     appState.value = 'idle'
     toggleModal()
+    toast(res.toast.message, res.toast.type)
   } catch (err: any) {
     error.value = err.response.data
   }
@@ -79,12 +81,14 @@ const validate = async () => {
   appState.value = 'loading'
 
   try {
-    if (star.id === 0) {
+    if (data.value.id === 0) {
       const res: any = await createStar(data.value)
       data.value = { ...res.data }
+      toast('Star créée avec succès')
     } else {
       const res: any = await editStar(data.value)
       data.value.updated_at = res.data.updated_at
+      toast('Star modifée avec succès')
     }
     appState.value = 'idle'
     error.value = {}

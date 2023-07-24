@@ -1,4 +1,5 @@
 import './assets/tailwind.css'
+import 'vue-toast-notification/dist/theme-sugar.css'
 // import './assets/main.css'
 
 import { createApp } from 'vue'
