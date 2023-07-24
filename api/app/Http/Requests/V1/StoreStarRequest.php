@@ -39,7 +39,7 @@ class StoreStarRequest extends FormRequest
         return [
             'first_name.required' => 'Le prénom est requis.',
             'last_name.required' => 'Le nom est requis',
-            'description.required' => 'La description est requies.',
+            'description.required' => 'La description est requise.',
             'popularity.required' => 'Le taux de popularité est requis.',
             'popularity.between' => 'Le taux de popularité doit être entre 1 et 99%.',
         ];
