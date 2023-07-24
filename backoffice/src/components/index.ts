@@ -1,5 +1,4 @@
 export { default as BaseModal } from './BaseModal.vue'
 export { default as Button } from './Button.vue'
 export { default as Layout } from './Layout.vue'
-export { default as SearchBar } from './SearchBar.vue'
-export { default as StarCard } from './StarCard.vue'
+export { default as Field } from './Field.vue'

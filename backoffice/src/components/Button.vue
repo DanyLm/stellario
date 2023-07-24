@@ -1,7 +1,11 @@
 <template>
   <button
+    :disabled="disabled"
     :type="props.buttonType"
-    :class="props.buttonClass || defaultClass"
+    :class="[
+      `rounded-md mx-1 border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`,
+      props.color
+    ]"
     @click="props.onClick"
   >
     <slot>Annuler</slot>
@@ -10,7 +14,6 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed } from 'vue'
 
 const props = defineProps({
   buttonType: {
@@ -18,19 +21,15 @@ const props = defineProps({
     default: 'button'
   },
   onClick: {
-    type: Function as PropType<(event: MouseEvent) => void | undefined>
+    type: Function as PropType<any>
   },
   color: {
     type: String,
-    default: 'blue'
+    default: 'bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500'
   },
-  buttonClass: {
-    type: String
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
-
-const defaultClass = computed(
-  () =>
-    `rounded-md border border-transparent bg-${props.color}-100 px-4 py-2 text-sm font-medium text-${props.color}-900 hover:bg-${props.color}-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-${props.color}-500 focus-visible:ring-offset-2`
-)
 </script>
