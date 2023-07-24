@@ -80,7 +80,12 @@ class StarController extends Controller
     public function destroy(Star $star)
     {
         $star->delete();
-        return response()->json("$star->first_name $star->last_name deleted successfully");
+        return response()->json([
+            'toast' => [
+                'message' => 'Star supprimée aves succès',
+                'type' => 'success'
+            ]
+        ]);
     }
 
     /**
@@ -98,15 +103,20 @@ class StarController extends Controller
             $path = FileService::save($file);
         } catch (\Exception $e) {
             return response()->json([
-                'text' => 'Echec du sauvegarde de la Photo',
-                'exception' => $e->getMessage()
-            ]);
+                'toast' => [
+                    'message' => 'Echec du sauvegarde de la Photo',
+                    'type' => 'error'
+                ]
+            ], 500);
         }
 
         $star->update([
             'face' => FileService::jsonMetadata($path)
         ]);
 
-        return response()->json(['text' => 'Photo sauvegardée avec succès']);
+        return response()->json(['toast' => [
+            'message' => 'Photo sauvegardée avec succès',
+            'type' => 'success'
+        ]]);
     }
 }
