@@ -25,6 +25,7 @@ class StoreStarRequest extends FormRequest
             'first_name' => ['required', 'min:3', 'max:30'],
             'last_name' => ['required', 'min:3', 'max:30'],
             'description' => ['required'],
+            'popularity' => ['required', 'integer', 'between:1,99'],
         ];
     }
 
@@ -36,9 +37,11 @@ class StoreStarRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'first_name.required' => 'First name is required',
-            'last_name.required' => 'Last name is required',
-            'description.required' => 'Description name is required'
+            'first_name.required' => 'Le prénom est requis.',
+            'last_name.required' => 'Le nom est requis',
+            'description.required' => 'La description est requies.',
+            'popularity.required' => 'Le taux de popularité est requis.',
+            'popularity.between' => 'Le taux de popularité doit être entre 1 et 99%.',
         ];
     }
 }

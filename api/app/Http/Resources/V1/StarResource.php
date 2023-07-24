@@ -18,9 +18,10 @@ class StarResource extends JsonResource
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
-            'face' => $this->face,
+            'face' => json_decode($this->face),
             'description' => $this->description,
             'popularity' => $this->popularity,
+            'updated_at' => $this->updated_at->format('d/m/Y à H:i')
         ];
     }
 }
