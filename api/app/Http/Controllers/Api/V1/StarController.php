@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\StoreStarRequest;
+use App\Http\Requests\V1\UpdateFaceStarRequest;
 use App\Http\Requests\V1\UpdateStarRequest;
 use App\Http\Resources\V1\StarCollection;
 use App\Http\Resources\V1\StarResource;
+use App\Http\Services\FileService;
 use App\Models\Star;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\DB;
 
 class StarController extends Controller
 {
@@ -26,7 +30,10 @@ class StarController extends Controller
 
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('first_name', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('last_name', 'like', '%' . $searchTerm . '%');
+                    ->orWhere('last_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%' . $searchTerm . '%')
+                    ->orWhere(DB::raw('CONCAT(last_name, " ", first_name)'), 'like', '%' . $searchTerm . '%')
+                    ->orWhere('popularity', $searchTerm);
             });
         }
 
@@ -40,7 +47,14 @@ class StarController extends Controller
      */
     public function store(StoreStarRequest $request)
     {
-        return new StarResource(Star::create($request->validated()));
+        $data = $request->validated();
+
+        if (!isset($data['face'])) {
+            $path = 'public/star.png';
+            $data['face'] = FileService::jsonMetadata($path);
+        }
+
+        return new StarResource(Star::create($data));
     }
 
     /**
@@ -56,7 +70,8 @@ class StarController extends Controller
      */
     public function update(UpdateStarRequest $request, Star $star)
     {
-        return new StarResource($star->update($request->validated()));
+        $star->update($request->validated());
+        return new StarResource($star);
     }
 
     /**
@@ -66,5 +81,32 @@ class StarController extends Controller
     {
         $star->delete();
         return response()->json("$star->first_name $star->last_name deleted successfully");
+    }
+
+    /**
+     * updateFace
+     *
+     * @param  UpdateFaceStarRequest $request
+     * @param  Star $star
+     * @return JsonResponse
+     */
+    public function updateFace(UpdateFaceStarRequest $request, Star $star)
+    {
+        $file = $request->validated()['image'];
+
+        try {
+            $path = FileService::save($file);
+        } catch (\Exception $e) {
+            return response()->json([
+                'text' => 'Echec du sauvegarde de la Photo',
+                'exception' => $e->getMessage()
+            ]);
+        }
+
+        $star->update([
+            'face' => FileService::jsonMetadata($path)
+        ]);
+
+        return response()->json(['text' => 'Photo sauvegardée avec succès']);
     }
 }

@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1'], function () {
     Route::resource('stars', StarController::class);
+    Route::post('/stars/{star}/face', [StarController::class, 'updateFace'])->name('stars.update_face');
 });
