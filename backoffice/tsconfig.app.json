@@ -7,7 +7,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/models": ["./src/models/*"]
+      "@/models": ["./src/models/*"],
+      "@/services": ["./src/services/*"],
+      "@/utils": ["./src/utils/*"],
     }
   }
 }
