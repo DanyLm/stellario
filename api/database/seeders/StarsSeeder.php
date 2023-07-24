@@ -13,6 +13,6 @@ class StarsSeeder extends Seeder
      */
     public function run(): void
     {
-        Star::factory()->count(16)->create();
+        Star::factory()->count(32)->create();
     }
 }

@@ -21,4 +21,13 @@ class Star extends Model
         'face',
         'popularity'
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'face' => 'json'
+    ];
 }

@@ -4,8 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Star;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Storage;
-
+use App\Http\Services\FileService;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Star>
  */
@@ -30,7 +29,7 @@ class StarFactory extends Factory
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'description' => fake()->text(400),
-            'face' => env('APP_URL') . Storage::url('public/face.png'),
+            'face' => FileService::jsonMetadata('public/face-' . rand(1, 3) . '.png'),
             'popularity' => rand(1, 100)
         ];
     }
