@@ -54,10 +54,10 @@ const stars: any = ref([])
 const toggled: any = ref(false)
 
 const toggleAccordion = (index: number) => {
-  toggled.value = !toggled.value
   stars.value.forEach((star: StarInterface, i: number) => {
     if (index === i) {
       star.open = !star.open
+      toggled.value = star.open
     } else {
       star.open = false
     }
