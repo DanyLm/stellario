@@ -7,6 +7,6 @@
 
 <script setup lang="ts">
 
-const version: string = import.meta.env.VUE_APP_VERSION;
+const version: string = import.meta.env.VITE_APP_VERSION;
 const years: number = new Date().getFullYear();
 </script>
