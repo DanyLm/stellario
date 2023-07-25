@@ -59,7 +59,7 @@ After **git clone** you'll have to run all commands bellow 👇
 
 Also you can **run test** in order to **test api endpoints**.
 
-    > mkdir tests/Unit // ONLY IF thest not working
+    > mkdir tests/Unit // ONLY IF test command bellow not working
     > php artisan test
 
 #### Back-office
