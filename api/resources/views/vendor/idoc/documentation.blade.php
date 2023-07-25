@@ -22,6 +22,8 @@
 
         #container .menu-content img {
             padding: 30px 0px;
+            width: 130px;
+            margin: auto;
         }
 
         .-depth0 {
