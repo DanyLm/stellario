@@ -16,6 +16,7 @@ class FileService
     public static function jsonMetadata(string $path): string
     {
         return json_encode([
+            'origin' => $path,
             'path' => env('APP_URL') . Storage::url($path),
             'mime' => Storage::mimeType($path),
             'size' => Storage::size($path)
@@ -32,5 +33,22 @@ class FileService
     {
         $name = uniqid() . '.' . $file->getClientOriginalExtension();
         return Storage::putFileAs('public/images', $file, $name);
+    }
+
+    /**
+     * delete
+     *
+     * @param  string $path
+     * @return bool
+     */
+    public static function delete(string $path): bool
+    {
+        try {
+            Storage::delete($path);
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
