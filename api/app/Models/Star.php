@@ -30,4 +30,22 @@ class Star extends Model
     protected $casts = [
         'face' => 'json'
     ];
+
+    /**
+     * toArray
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'face' => json_decode($this->face, true),
+            'description' => $this->description,
+            'popularity' => $this->popularity,
+            'updated_at' => $this->updated_at->format('d/m/Y à H:i')
+        ];
+    }
 }
