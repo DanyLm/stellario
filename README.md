@@ -95,8 +95,8 @@ Also you can **run test** in order to **test api endpoints**.
 ## App features
  
 | Feat | Description |
-|--|--|--|
-| Index | get all stars ordered by first_name  | Search by first name, last name, composed first name with last name or popularity |
+|--|--|
+| Index | get all stars ordered by first_name |
 | Responsiveness | Screen is different depending on user's screen |
 
 
