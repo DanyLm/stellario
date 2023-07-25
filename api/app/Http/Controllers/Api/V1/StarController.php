@@ -49,10 +49,10 @@ class StarController extends Controller
     {
         $data = $request->validated();
 
-        if (!isset($data['face'])) {
-            $path = 'public/star.png';
-            $data['face'] = FileService::jsonMetadata($path);
-        }
+        // if (!isset($data['face'])) {
+        //     $path = 'public/star.png';
+        //     $data['face'] = FileService::jsonMetadata($path);
+        // }
 
         return new StarResource(Star::create($data));
     }
@@ -74,10 +74,14 @@ class StarController extends Controller
         return new StarResource($star);
     }
 
+
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  Star $star
+     * @return JsonResponse
      */
-    public function destroy(Star $star)
+    public function destroy(Star $star): JsonResponse
     {
         $star->delete();
         return response()->json([
@@ -95,24 +99,23 @@ class StarController extends Controller
      * @param  Star $star
      * @return JsonResponse
      */
-    public function updateFace(UpdateFaceStarRequest $request, Star $star)
+    public function updateFace(UpdateFaceStarRequest $request, Star $star): JsonResponse
     {
         $file = $request->validated()['image'];
 
         try {
             $path = FileService::save($file);
+            $star->update([
+                'face' => FileService::jsonMetadata($path)
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'toast' => [
-                    'message' => 'Echec du sauvegarde de la Photo',
+                    'message' => $e->getMessage(),
                     'type' => 'error'
                 ]
             ], 500);
         }
-
-        $star->update([
-            'face' => FileService::jsonMetadata($path)
-        ]);
 
         return response()->json(['toast' => [
             'message' => 'Photo sauvegardée avec succès',
