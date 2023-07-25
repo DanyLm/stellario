@@ -29,7 +29,7 @@ class StarFactory extends Factory
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'description' => fake()->text(400),
-            'face' => FileService::jsonMetadata('public/face-' . rand(1, 3) . '.png'),
+            'face' => FileService::jsonMetadata('public/face-' . rand(1, 5) . '.png'),
             'popularity' => rand(1, 100)
         ];
     }

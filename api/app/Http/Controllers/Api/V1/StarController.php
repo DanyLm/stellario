@@ -48,12 +48,6 @@ class StarController extends Controller
     public function store(StoreStarRequest $request)
     {
         $data = $request->validated();
-
-        // if (!isset($data['face'])) {
-        //     $path = 'public/star.png';
-        //     $data['face'] = FileService::jsonMetadata($path);
-        // }
-
         return new StarResource(Star::create($data));
     }
 
