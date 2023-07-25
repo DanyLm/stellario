@@ -65,7 +65,10 @@ export default {
         toast(res.toast.message, res.toast.type)
       } catch (err: any) {
         this.face = this.star.face.path
-        toast(err.response.data.message, err.response.data.errors ? 'error' : 'warning')
+        const message: string = err.response.data.message || err.response.data.toast?.message
+        const type: string =
+          err.response.data.toast?.type || (err.response.data?.errors ? 'error' : 'warning')
+        toast(message, type)
       }
     }
   }
