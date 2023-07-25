@@ -1,2 +1,4 @@
 *
 !.gitignore
+!face-*.png
+!star.png
