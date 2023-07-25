@@ -54,22 +54,26 @@ After **git clone** you'll have to run all commands bellow 👇
     > cp .env.example .env
     > php artisan db:create stellario // this command create database
     > php artisan migrate:fresh --seed // Create random stars
+    > php artisan storage:link // To expose public storage folder
     > php artisan serve // Running on port :8000
 
 Also you can **run test** in order to **test api endpoints**.
 
+    > mkdir tests/Unit // ONLY IF thest not working
     > php artisan test
 
 #### Back-office
 
     > cd backoffice
     > npm install
+    > cp .env.example .env
     > npm run dev // Running on port :5173
 
 #### App (public app)
 
     > cd app
     > npm install
+    > cp .env.example .env
     > npm run dev // Running on port :3000
 
 ## Back-office features 
