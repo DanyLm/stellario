@@ -16,10 +16,20 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @group Stars
+ */
 class StarController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get stars
+     *
+     * ```StarController::class```
+     *
+     * @queryParam search string Input search, can be first name, last name, both or popularity. Example: dany bitard
+     *
+     * @param  Request $request
+     * @return ResourceCollection
      */
     public function index(Request $request): ResourceCollection
     {
@@ -42,17 +52,36 @@ class StarController extends Controller
         return new StarCollection($stars);
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * Store star
+     *
+     * ```StarController::class```
+     *
+     * @bodyParam first_name string required First name of the star. Example: Dany
+     * @bodyParam last_name string required Last name of the star. Example: Bitard
+     * @bodyParam popularity int required Popularity of the star ```1 to 99```. Example: 69
+     * @bodyParam description string required Description of the star. Example:
+     *
+     * @param  StoreStarRequest $request
+     * @return JsonResource
      */
-    public function store(StoreStarRequest $request)
+    public function store(StoreStarRequest $request): JsonResource
     {
         $data = $request->validated();
         return new StarResource(Star::create($data));
     }
 
+
     /**
-     * Display the specified resource.
+     * Get star
+     *
+     * ```StarController::class```
+     *
+     * @pathParam star int required ID of the star. Example: 1
+     *
+     * @param  Star $star
+     * @return JsonResource
      */
     public function show(Star $star): JsonResource
     {
@@ -60,9 +89,21 @@ class StarController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update star
+     *
+     * ```StarController::class```
+     *
+     * @pathParam star int required ID of the star. Example: 1
+     * @bodyParam first_name string required First name of the star. Example: Dany
+     * @bodyParam last_name string required Last name of the star. Example: Bitard
+     * @bodyParam popularity int required Popularity of the star ```1 to 99```. Example: 69
+     * @bodyParam description string required Description of the star. Example:
+     *
+     * @param  UpdateStarRequest $request
+     * @param  Star $star
+     * @return JsonResource
      */
-    public function update(UpdateStarRequest $request, Star $star)
+    public function update(UpdateStarRequest $request, Star $star): JsonResource
     {
         $star->update($request->validated());
         return new StarResource($star);
@@ -70,7 +111,11 @@ class StarController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * Remove star
+     *
+     * ```StarController::class```
+     *
+     * @pathParam star int required ID of the star. Example: 1
      *
      * @param  Star $star
      * @return JsonResponse
@@ -87,7 +132,12 @@ class StarController extends Controller
     }
 
     /**
-     * updateFace
+      * Update face's star
+     *
+     * ```StarController::class```
+     *
+     * @pathParam star int required ID of the star. Example: 1
+     * @bodyParam image image required Face image of the star. Example:
      *
      * @param  UpdateFaceStarRequest $request
      * @param  Star $star

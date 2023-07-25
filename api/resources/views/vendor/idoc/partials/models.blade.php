@@ -1,0 +1,3 @@
+# Modèles
+
+{{ $content }}

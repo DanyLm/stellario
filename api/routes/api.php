@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\StarController;
+use App\Http\Controllers\Api\V1\IdocController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Documentation
+Route::get('/idoc', [IdocController::class, 'idoc'])->name('app.idoc');
 
 Route::group(['prefix' => 'v1'], function () {
     Route::resource('stars', StarController::class);
