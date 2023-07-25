@@ -29,9 +29,15 @@ export default defineNuxtConfig({
         {
           rel: 'icon',
           type: 'image/x-icon',
-          href: '/favicon.icon'
+          href: '/favicon.ico'
         }
       ]
+    }
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_URL, 
+      version: process.env.APP_VERSION
     }
   }
 })
