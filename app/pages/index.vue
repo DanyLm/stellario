@@ -63,9 +63,10 @@ const toggleAccordion = (index: number) => {
   })
 }
 
+
 const getStars = async () => {
-  const { data } = await $fetch('/api/stars').catch((error) => console.log(error))
-  stars.value = data
+  const res = await $fetch('/api/stars').catch((error) => console.log(error))
+  stars.value = res?.data || []
 }
 
 onMounted(() => {
