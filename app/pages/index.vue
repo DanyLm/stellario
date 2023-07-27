@@ -47,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-import { getStars } from '@/services/starApi'
 import { StarInterface } from '@/models'
 
 const stars: any = ref([])
@@ -64,16 +63,12 @@ const toggleAccordion = (index: number) => {
   })
 }
 
-const fetchStars = async () => {
-  try {
-    const res: any = await getStars()
-    stars.value = res.data
-  } catch (err) {
-    console.error(err)
-  }
+const getStars = async () => {
+  const { data } = await $fetch('/api/stars').catch((error) => console.log(error))
+  stars.value = data
 }
 
 onMounted(() => {
-  fetchStars()
+  getStars()
 })
 </script>
