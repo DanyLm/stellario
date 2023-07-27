@@ -1,3 +1,4 @@
+
 # Stellario 💫
 
 This app aim to create some stars based on true (or not) informations, manage them and show them through a public page.
@@ -15,9 +16,10 @@ Stack technologie is based on **Laravel 10** for the Rest Api and **VueJS** for 
 ```mermaid
 graph LR
 A[User] -- can see some stars --> B((NuxtJS))
+B -- internal api calls --> F{NuxtJS Api}
 C[Admin] -- can manage some stars --> D((VueJS))
 D --> E{Laravel Rest Api}
-B --> E{Laravel Rest Api}
+F --> E{Laravel Rest Api}
 ```
 > By default command *php artisan serve* on port ```:8000```.
 > It can be changed in every **.env** files contains in each folder **app, api & backoffice**
